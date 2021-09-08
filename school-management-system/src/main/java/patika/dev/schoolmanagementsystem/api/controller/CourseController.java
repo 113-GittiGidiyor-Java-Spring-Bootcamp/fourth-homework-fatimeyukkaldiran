@@ -24,7 +24,6 @@ import java.util.Optional;
 public class CourseController {
 
   private final CourseService courseService;
-  private final ErrorExceptionLoggerService loggerService;
 
     @PostMapping("/add")
     public ResponseEntity<Course> saveCourse(@RequestBody CourseDto courseDto){

@@ -1,10 +1,16 @@
 package patika.dev.schoolmanagementsystem.exceptions;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import patika.dev.schoolmanagementsystem.entity.ErrorExceptionLogger;
+import patika.dev.schoolmanagementsystem.service.ErrorExceptionLoggerService;
+
+import java.sql.Date;
+import java.time.LocalDate;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
@@ -57,8 +63,9 @@ public class GlobalExceptionHandler {
     private SchoolManagementAppErrorResponse getErrorResponse(HttpStatus httpStatus,String message) {
         SchoolManagementAppErrorResponse response = new SchoolManagementAppErrorResponse();
         response.setStatus(httpStatus.value());
-        response.setMessage((message));
-        response.setTimestamp(System.currentTimeMillis());
-        return response;
+        response.setMessageError((message));
+        response.setExceptionDate(Date.valueOf(LocalDate.now()));
+
+        return errorExceptionLoggerService.save(response).get();
     }
 }

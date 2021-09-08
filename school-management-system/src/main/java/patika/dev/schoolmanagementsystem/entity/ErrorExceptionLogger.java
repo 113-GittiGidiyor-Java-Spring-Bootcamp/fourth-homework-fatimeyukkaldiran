@@ -10,7 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import java.time.LocalDate;
+import java.util.Date;
 
 @Data
 @NoArgsConstructor
@@ -22,7 +22,8 @@ public class ErrorExceptionLogger {
     @ApiModelProperty(hidden = true)
     private long id;
 
+    private Integer status;
     private String messageError;
     @JsonFormat(pattern = "yyyy-MM-dd")
-    private LocalDate exceptionDate;
+    private Date exceptionDate;
 }

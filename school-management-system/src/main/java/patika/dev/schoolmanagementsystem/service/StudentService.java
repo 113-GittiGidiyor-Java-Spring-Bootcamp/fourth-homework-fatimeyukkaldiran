@@ -37,11 +37,11 @@ public class StudentService {
 
     public Optional<Student> addStudentToCourse(Long studentId,Long courseId){
        Optional<Course> course = courseRepository.findById(courseId);
-        Student student = studentRepository.getById(studentId);
+        Optional<Student> student = studentRepository.findById(studentId);
 
-        course.getStudents().add(student);
-        student.getCourses().add(course);
-        courseRepository.save(course);
-        return Optional.of(studentRepository.save(student));
+        course.get().getStudents().add(student.get());
+        student.get().getCourses().add(course.get());
+        courseRepository.save(course.get());
+        return Optional.of(studentRepository.save(student.get()));
     }
 }
